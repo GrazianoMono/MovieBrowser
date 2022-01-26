@@ -3,10 +3,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
 	mode: 'development',
-	entry: './src/index.js',
+	entry: {
+		index: './src/index.js',
+		movie: './src/pages/movie.js',
+	},
 	output: {
-		filename: 'main.js',
+		filename: '[name].js',
 		path: path.resolve(__dirname, 'dist'),
+	},
+	optimization: {
+		splitChunks: {
+			chunks: 'all',
+		},
 	},
 	devServer: {
 		static: './dist',
@@ -15,12 +23,15 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			title: 'MovieBrowser',
+			filename: 'index.html',
 			template: './src/index.html',
+			chunks: ['index'],
 		}),
 		new HtmlWebpackPlugin({
 			title: 'Movie',
 			filename: 'movie.html',
 			template: './src/pages/movie.html',
+			chunks: ['movie'],
 		}),
 	],
 	module: {
