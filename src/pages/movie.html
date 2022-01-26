@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html
+	lang="en"
+	class="text-[40%] sm:text-[50%] md:text-[52.5%] lg:text-[62.5%] xl:text-[75%]"
+>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Movie title</title>
+	</head>
+	<body class="font-roboto">
+		<section id="header" class="w-full my-4">
+			<nav
+				class="navbar flex flex-row justify-center items-center min-h-[10vh] w-full"
+			>
+				<div
+					class="navbar__logo flex flex-row justify-center items-center w-full"
+				>
+					<div class="logo w-32 mr-4">
+						<img
+							src="../assets/img/watching-a-movie.png"
+							alt="Logo"
+						/>
+					</div>
+					<h1 class="font-extrabold text-5xl select-none">
+						<a href="../index.html">MovieBrowser</a>
+					</h1>
+				</div>
+			</nav>
+		</section>
+
+		<section id="hero" class="my-8 px-16 w-full">
+			<div
+				class="film-info flex flex-row flex-wrap w-full justify-center sm:justify-start rounded-2xl bg-gray-200 p-8"
+			>
+				<div
+					class="film-info__description flex justify-between items-start flex-wrap p-10 mb-4 sm:mb-0 gap-y-8 w-full sm:w-1/2 sm:order-2 md:w-2/3"
+				>
+					<h2 id="title" class="font-bold text-7xl w-3/5">
+						Spiderman No Way Home
+					</h2>
+					<div class="flex justify-end items-center w-1/3">
+						<p
+							id="vote"
+							class="border-4 w-28 h-28 leading-[6rem] text-5xl text-bold border-green-500 rounded-full text-center"
+						>
+							5.5
+						</p>
+					</div>
+					<h3 id="subtitle" class="w-full text-4xl italic">
+						The Multiverse unleashed.
+					</h3>
+					<h4 id="plot" class="w-full text-4xl">
+						Peter Parker is unmasked and no longer able to separate
+						his normal life from the high-stakes of being a
+						super-hero. When he asks for help from Doctor Strange
+						the stakes become even more dangerous, forcing him to
+						discover what it truly means to be Spider-Man.
+					</h4>
+				</div>
+				<div
+					class="film-info__poster w-full sm:w-1/2 sm:order-1 md:w-1/3 my-4"
+				>
+					<img
+						id="poster"
+						src="../assets/img/No-Image-Placeholder.png"
+						alt="Movie poster"
+					/>
+				</div>
+				<div
+					class="film-info__logistic flex flex-row flex-wrap w-full min-h-[7.5vh] justify-center items-center order-3 gap-y-4"
+				>
+					<div
+						class="icon-text flex flex-row w-full md:w-1/3 justify-center items-center"
+					>
+						<img
+							src="../assets/svgs/clock.svg"
+							class="w-20 white mr-4"
+							alt="Release date"
+						/>
+						<p class="text-4xl">Release date:&nbsp;</p>
+						<p id="release" class="font-bold text-4xl">1.1.2021</p>
+					</div>
+					<div
+						class="icon-text flex flex-row w-full md:w-1/3 justify-center items-center"
+					>
+						<img
+							src="../assets/svgs/film-time.svg"
+							class="w-20 white mr-4"
+							alt="Release date"
+						/>
+						<p class="text-4xl">Duration:&nbsp;</p>
+						<p id="film-time" class="font-bold text-4xl">2h</p>
+					</div>
+					<div
+						class="icon-text flex flex-row w-full md:w-1/3 justify-center items-center"
+					>
+						<img
+							src="../assets/svgs/budget.svg"
+							class="w-20 white mr-4"
+							alt="Release date"
+						/>
+						<p class="text-4xl">Budget:&nbsp;</p>
+						<p id="budget" class="font-bold text-4xl">
+							&#36;200000000
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="film-gallery my-8 flex flex-col w-full gap-y-4 rounded-xl p-8 bg-gray-200"
+			>
+				<h4 class="text-5xl font-semibold">Gallery</h4>
+				<div id="slider" class="flex flex-col w-full max-h-[60vh] relative">
+					<button
+						class="slider__previous flex justify-start opacity-50 hover:opacity-100 items-center h-full absolute top-0 left-0"
+					>
+						<img
+							class="w-20 h-20"
+							src="../assets/svgs/left.svg"
+							alt="Backward"
+						/>
+					</button>
+					<div
+						id="slider__images"
+						class="overflow-hidden flex flex-row items-center w-full h-full"
+					>
+						<img
+							class="object-contain"
+							src="../assets/img/No-Image-Placeholder.png"
+							alt=""
+						/>
+					</div>
+					<button
+						class="slider__after flex justify-end opacity-50 hover:opacity-100 items-center h-full absolute top-0 right-0"
+					>
+						<img
+							class="w-20 h-20"
+							src="../assets/svgs/right.svg"
+							alt="Forward"
+						/>
+					</button>
+				</div>
+			</div>
+
+			<div
+				id="recomandations"
+				class="flex flex-row flex-wrap rounded-xl gap-8 p-8"
+			></div>
+		</section>
+	</body>
+</html>
