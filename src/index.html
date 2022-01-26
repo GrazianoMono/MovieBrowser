@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+	lang="en"
+	class="text-[40%] sm:text-[50%] md:text-[52.5%] lg:text-[62.5%] xl:text-[75%]"
+>
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,26 +10,33 @@
 		<title>MovieBrowser</title>
 	</head>
 	<body class="font-roboto">
-
 		<template id="movie-card-template">
 			<div class="movie-card"></div>
 		</template>
 
-		<section id="header" class="w-full py-4">
+		<section id="header" class="w-full my-4">
 			<nav
 				class="navbar flex flex-col sm:flex-row items-center min-h-[10vh] w-full"
 			>
-				<div class="flex flex-row justify-center items-center w-full">
-					<img
-						class="logo w-min h-min mr-4"
-						src="./assets/img/watching-a-movie.png"
-						alt="Logo"
-					/>
-					<p class="font-roboto font-bold">MovieBrowser</p>
+				<div
+					class="navbar__logo flex flex-row justify-center items-center w-full"
+				>
+					<div class="logo w-32 mr-4">
+						<img
+							src="./assets/img/watching-a-movie.png"
+							alt="Logo"
+						/>
+					</div>
+					<h1 class="font-extrabold text-5xl select-none">
+						<a href="./index.html">MovieBrowser</a>
+					</h1>
 				</div>
 				<div class="w-full h-full flex justify-center items-center">
 					<form id="search">
-						<input type="text" class="search__field rounded border-2"/>
+						<input
+							type="text"
+							class="search__field rounded border-2"
+						/>
 						<button class="search__button"></button>
 					</form>
 				</div>
@@ -39,35 +49,44 @@
 					class="list flex flex-row flex-wrap md:flex-nowrap justify-evenly items-center gap-y-4"
 				>
 					<li
-						class="list__link mx-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center bg-blue-500 text-white font-bold"
+						class="list__link px-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center bg-blue-500 text-white font-bold"
 					>
-						<a class="w-full text-center h-full" href="#">Popular</a>
+						<a class="w-full text-3xl text-center h-full" href="#"
+							>Popular</a
+						>
 					</li>
 					<li
-						class="list__link mx-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center"
+						class="list__link px-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center"
 					>
-						<a class="w-full text-center h-full" href="#">Now playing</a>
+						<a class="w-full text-3xl text-center h-full" href="#"
+							>Now playing</a
+						>
 					</li>
 					<li
-						class="list__link mx-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center"
+						class="list__link px-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center"
 					>
-						<a class="w-full text-center h-full" href="#">Top rated</a>
+						<a class="w-full text-3xl text-center h-full" href="#"
+							>Top rated</a
+						>
 					</li>
 					<li
-						class="list__link mx-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center"
+						class="list__link px-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center"
 					>
-						<a class="w-full text-center h-full" href="#">Upcoming</a>
+						<a class="w-full text-3xl text-center h-full" href="#"
+							>Upcoming</a
+						>
 					</li>
 				</ul>
 			</div>
+
 			<div
 				id="movie-list"
-				class="p-8 flex flex-row flex-wrap items-start justify-center gap-8"
+				class="flex flex-row flex-wrap items-start justify-center gap-8 p-8"
 			>
 				<div
-					class="movie-card flex flex-col rounded-md w-2/3 sm:w-1/3 lg:w-1/5 xl:w-1/6 bg-black"
+					class="movie-card flex flex-col rounded-md w-2/3 sm:w-1/3 lg:w-1/5 xl:w-1/6 bg-gray-200"
 				>
-					<a href="./pages/movie.html">
+					<a href="./movie.html">
 						<img
 							class="movie-card__poster"
 							src="./assets/img/No-Image-Placeholder.png"
@@ -76,33 +95,61 @@
 						<div
 							class="movie-card__info flex flex-row flex-wrap justify-between items-center p-4 gap-y-4"
 						>
-							<h4 class="movie-card__title text-white w-2/3">
+							<h4
+								class="movie-card__title text-4xl font-bold w-2/3"
+							>
 								Spiderman No way home
 							</h4>
-							<h4
-								class="movie-card__vote border-2 border-green-500 rounded-xl text-white w-1/3 text-center"
-							>
-								Voto
-							</h4>
-							<h5 class="movie-card__genres text-white w-full">
+							<div class="flex justify-end items-center w-1/3">
+								<p
+									id="vote"
+									class="border-2 w-20 h-20 leading-[5rem] text-4xl text-bold border-green-500 rounded-full text-center"
+								>
+									5.5
+								</p>
+							</div>
+							<h5 class="movie-card__genres text-3xl w-full">
 								Action, Adventure
 							</h5>
 						</div>
 					</a>
 				</div>
 			</div>
-			<div id="pagination" class="flex flex-row justify-between items-center w-full h-[5vh] ">
-				<div class="pagination__backward flex flex-row justify-evenly items-center w-1/4 h-full">
-					<span id="pagination__first" class="rounded select-none border-2 py-2 px-4 hidden md:block"><<</span>
-					<span id="pagination__previous" class="rounded select-none border-2 py-2 px-4"><</span>
-				</div>
-				<div class="pagination__numbers flex flex-row justify-center items-center w-1/2 h-full">
 
-				</div>
-				<div class="pagination__forward flex flex-row justify-evenly items-center w-1/4 h-full">
-					<span id="pagination__after" class="rounded select-none border-2 py-2 px-4 text-center">></span>
-					<span id="pagination__last" class="rounded select-none border-2 py-2 px-4 hidden md:block">>></span>
-				</div>
+			<div
+				id="pagination"
+				class="flex flex-row justify-evenly items-center w-full min-h-[5vh] p-8"
+			>
+				<button
+					id="pagination__previous"
+					class="rounded border-2 py-2 px-4"
+				>
+					<img
+							class="w-12 h-12"
+							src="./assets/svgs/left.svg"
+							alt="Backward"
+						/>
+				</button>
+
+				<button
+					id="pagination__number"
+					class="rounded select-none border-2 py-2 px-4 text-center"
+				>
+					<p class="w-12 h-12 text-3xl leading-10 font-semibold">
+						1
+					</p>
+				</button>
+
+				<button
+					id="pagination__after"
+					class="rounded select-none border-2 py-2 px-4 text-center"
+				>
+					<img
+							class="w-12 h-12"
+							src="./assets/svgs/right.svg"
+							alt="Forward"
+						/>
+				</button>
 			</div>
 		</section>
 
