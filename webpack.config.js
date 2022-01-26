@@ -17,6 +17,11 @@ module.exports = {
 			title: 'MovieBrowser',
 			template: './src/index.html',
 		}),
+		new HtmlWebpackPlugin({
+			title: 'Movie',
+			filename: 'movie.html',
+			template: './src/pages/movie.html',
+		}),
 	],
 	module: {
 		rules: [
