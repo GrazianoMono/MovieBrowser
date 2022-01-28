@@ -172,7 +172,8 @@
 					class="flex flex-col w-full max-h-[60vh] relative"
 				>
 					<button
-						class="slider__previous flex justify-start opacity-50 hover:opacity-100 items-center h-full absolute top-0 left-0"
+						id="slider__previous"
+						class="flex justify-start opacity-50 hover:opacity-100 items-center h-full absolute top-0 left-0"
 					>
 						<img
 							class="w-20 h-20"
@@ -182,7 +183,7 @@
 					</button>
 					<div
 						id="slider__images"
-						class="overflow-hidden flex flex-row items-center w-full h-full"
+						class="overflow-hidden flex flex-row justify-start items-center w-full h-full"
 					>
 						<img
 							class="object-contain"
@@ -191,7 +192,8 @@
 						/>
 					</div>
 					<button
-						class="slider__after flex justify-end opacity-50 hover:opacity-100 items-center h-full absolute top-0 right-0"
+						id="slider__next"
+						class="flex justify-end opacity-50 hover:opacity-100 items-center h-full absolute top-0 right-0"
 					>
 						<img
 							class="w-20 h-20"

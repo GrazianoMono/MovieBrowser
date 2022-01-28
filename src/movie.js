@@ -9,6 +9,7 @@ let movie_id = 0
 let images = []
 let genres = []
 let cast = []
+let image_showed = 1
 
 const getGenres = async function () {
 	try {
@@ -147,9 +148,24 @@ const getImages = async function () {
 	} catch (e) {}
 }
 
+const previousImage = function () {
+
+}
+
+const nextImage = function () {
+	let slider = document.getElementById('slider__images')
+	for (const image of slider.children) {
+		
+	}
+}
+
 document.onload = (function () {
 	getMovieId()
 	getGenres()
+
+	document.getElementById('slider__previous').addEventListener('click', previousImage)
+	document.getElementById('slider__next').addEventListener('click', nextImage)
+
 	getMovie()
 	getRecomandations()
 	getCredits()
