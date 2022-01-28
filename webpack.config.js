@@ -5,32 +5,25 @@ module.exports = {
 	mode: 'development',
 	entry: {
 		index: './src/index.js',
-		movie: './src/pages/movie.js',
+		movie: './src/movie.js',
 	},
 	output: {
 		filename: '[name].js',
 		path: path.resolve(__dirname, 'dist'),
-	},
-	optimization: {
-		splitChunks: {
-			chunks: 'all',
-		},
+		clean: true,
 	},
 	devServer: {
 		static: './dist',
-		compress: true,
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			title: 'MovieBrowser',
+			template: './src/pages/index.html',
 			filename: 'index.html',
-			template: './src/index.html',
 			chunks: ['index'],
 		}),
 		new HtmlWebpackPlugin({
-			title: 'Movie',
-			filename: 'movie.html',
 			template: './src/pages/movie.html',
+			filename: 'movie.html',
 			chunks: ['movie'],
 		}),
 	],
