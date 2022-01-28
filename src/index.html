@@ -10,14 +10,13 @@
 		<title>MovieBrowser</title>
 	</head>
 	<body class="font-roboto">
-
 		<template id="movie-card-template">
 			<div
-				class="movie-card flex flex-col rounded-md w-2/3 sm:w-1/3 lg:w-1/5 xl:w-1/6 bg-gray-200"
+				class="movie-card flex flex-col rounded-md w-2/3 sm:w-1/3 md:w-1/5 h-30vh bg-gray-300"
 			>
 				<a class="movie-card__link" href="./movie.html">
 					<img
-						class="movie-card__poster"
+						class="movie-card__poster w-full h-3/4 object-cover"
 						src="./assets/img/No-Image-Placeholder.png"
 						alt="film-title"
 					/>
@@ -29,7 +28,7 @@
 						></h4>
 						<div class="flex justify-end items-center w-1/3">
 							<p
-								class="movie-card__vote border-2 w-20 h-20 leading-[5rem] text-4xl text-bold border-green-500 rounded-full text-center"
+								class="movie-card__vote border-2 w-16 h-16 leading-[3.5rem] text-3xl text-bold border-green-500 rounded-full text-center"
 							></p>
 						</div>
 						<h5 class="movie-card__genres text-3xl w-full"></h5>
@@ -40,10 +39,10 @@
 
 		<section id="header" class="w-full my-4">
 			<nav
-				class="navbar flex flex-col sm:flex-row items-center min-h-[10vh] w-full"
+				class="navbar flex flex-col sm:flex-row justify-evenly items-center min-h-[10vh] w-full"
 			>
 				<div
-					class="navbar__logo flex flex-row justify-center items-center w-full"
+					class="navbar__logo flex flex-row justify-center items-center"
 				>
 					<div class="logo w-32 mr-4">
 						<img
@@ -55,50 +54,54 @@
 						<a href="./index.html">MovieBrowser</a>
 					</h1>
 				</div>
-				<div class="w-full h-full flex justify-center items-center">
-					<form id="search">
-						<input
-							type="text"
-							class="search__field rounded border-2"
-						/>
-						<button class="search__button"></button>
-					</form>
+				<div class="h-full flex justify-center rounded border-2 items-center">
+					<input type="text" id="search__field" class="h-full w-full text-4xl focus:outline-0" />
+					<button id="search__button">
+						<img src="./assets/svgs/search.svg" alt="search" />
+					</button>
 				</div>
 			</nav>
 		</section>
 
 		<section id="hero" class="w-full min-h-[80vh] p-4">
-			<div id="filters">
+			<div id="search-header" class="w-full h-min-[10vh] px-12 my-8 hidden">
+				<h2 class="font-bold text-4xl">Search results:</h2>
+			</div>
+			<div id="movies-filters">
 				<ul
-					class="list flex flex-row flex-wrap md:flex-nowrap justify-evenly items-center gap-y-4"
+					class="list flex flex-row flex-wrap md:flex-nowrap justify-evenly items-center gap-y-4 w-full"
 				>
 					<li
-						class="list__link movie-filter px-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center bg-blue-500 text-white font-bold"
+						data-filter="1"
+						class="list__link mr-2 movies-filter px-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center bg-blue-500 text-white font-bold"
 					>
-						<a class="w-full text-3xl text-center h-full" href="#"
-							>Popular</a
-						>
+						<a class="w-full text-3xl text-center h-full" href="#">
+							Popular
+						</a>
 					</li>
 					<li
-						class="list__link movie-filter px-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center"
+						data-filter="2"
+						class="list__link mr-2 movies-filter px-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center"
 					>
-						<a class="w-full text-3xl text-center h-full" href="#"
-							>Now playing</a
-						>
+						<a class="w-full text-3xl text-center h-full" href="#">
+							Now playing
+						</a>
 					</li>
 					<li
-						class="list__link movie-filter px-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center"
+						data-filter="3"
+						class="list__link mr-2 movies-filter px-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center"
 					>
-						<a class="w-full text-3xl text-center h-full" href="#"
-							>Top rated</a
-						>
+						<a class="w-full text-3xl text-center h-full" href="#">
+							Top rated
+						</a>
 					</li>
 					<li
-						class="list__link movie-filter px-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center"
+						data-filter="4"
+						class="list__link mr-2 movies-filter px-2 border-2 py-4 rounded-md w-3/4 sm:w-1/3 md:w-1/5 text-center"
 					>
-						<a class="w-full text-3xl text-center h-full" href="#"
-							>Upcoming</a
-						>
+						<a class="w-full text-3xl text-center h-full" href="#">
+							Upcoming
+						</a>
 					</li>
 				</ul>
 			</div>
@@ -124,10 +127,14 @@
 				</button>
 
 				<button
-					id="pagination__number"
 					class="rounded select-none border-2 py-2 px-4 text-center"
 				>
-					<p class="w-12 h-12 text-3xl leading-10 font-semibold">1</p>
+					<p
+						id="pagination__number"
+						class="w-12 h-12 text-3xl leading-10 font-semibold"
+					>
+						1
+					</p>
 				</button>
 
 				<button
