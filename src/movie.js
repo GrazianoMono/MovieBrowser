@@ -22,10 +22,10 @@ const getGenres = async function () {
 	}
 }
 
-const renderRecomandations = function (movies, htmlElement) {
+const renderRecomandations = function (htmlElement) {
 	htmlElement.innerHTML = ''
 	let movieList = htmlElement
-	for (const movie of movies) {
+	for (const movie of recomandations) {
 		const movieCard = document.importNode(movieCardTemplate, true)
 		movieCard.content.querySelector('.movie-card__title').textContent =
 			movie.title
@@ -61,10 +61,23 @@ const renderRecomandations = function (movies, htmlElement) {
 }
 
 const renderMovie = function () {
-	document.getElementById()
+	document.getElementById('title').textContent = movie.title
+	document.getElementById('subtitle').textContent = movie.tagline
+	document.getElementById('plot').textContent = movie.overview
+	let movieGenres = ''
+	for (const genre of movie.genres) {
+		movieGenres += genre.name + ', '
+	}
+	movieGenres = movieGenres.slice(0, -2)
+	document.getElementById('genres') = movieGenres
+	document.getElementById('vote').textContent = movie.vote_average
+	document.getElementById('release').textContent = movie.release_date
+	document.getElementById('budget').textContent = movie.budget
+	document.getElementById('film-time').textContent = Math.floor(movie.runtime / 60) + (movie.runtime % 60) * 0.01
+	if (movie.poster_path) document.getElementById('poster').src = movie.poster_path
 }
 
-const renderCredits = function (crew, htmlElement) {
+const renderCredits = function (htmlElement) {
 	let castDiv = htmlElement
 	console.log(cast)
 	for (const actor of cast) {
@@ -108,7 +121,6 @@ const getRecomandations = async function () {
 		let data = await res.json()
 		recomandations = data.results
 		renderRecomandations(
-			recomandations,
 			document.getElementById('recomandations')
 		)
 	} catch (e) {}
@@ -131,7 +143,7 @@ const getImages = async function () {
 			`https://api.themoviedb.org/3/movie/${movie_id}/images?api_key=bf42acf712bba686cfff9820897f4edb&language=null`
 		)
 		let data = await res.json()
-		cast = data.cast
+		cast = data
 	} catch (e) {}
 }
 
