@@ -1,4 +1,6 @@
 import './css/main.css'
+import expand from './assets/svgs/expand-more.svg'
+import collapse from './assets/svgs/expand-less.svg'
 
 const movieCardTemplate = document.getElementById('movie-card-template')
 const actorCardTemplate = document.getElementById('actor-card-template')
@@ -10,6 +12,7 @@ let images = []
 let genres = []
 let cast = []
 let image_showed = 1
+let showMoreCast = false
 
 const getGenres = async function () {
 	try {
@@ -24,8 +27,8 @@ const getGenres = async function () {
 }
 
 const renderRecomandations = function (htmlElement) {
-	htmlElement.innerHTML = ''
 	let movieList = htmlElement
+	movieList.innerHTML = ''
 	for (const movie of recomandations) {
 		const movieCard = document.importNode(movieCardTemplate, true)
 		movieCard.content.querySelector('.movie-card__title').textContent =
@@ -33,7 +36,8 @@ const renderRecomandations = function (htmlElement) {
 		movieCard.content.querySelector('.movie-card__vote').textContent =
 			movie.vote_average
 		movieCard.content.querySelector('.movie-card__vote').textContent =
-			movie.vote_average
+			Math.floor(movie.vote_average * 10) / 10
+
 		let movieGenres = ''
 		for (const genre_id of movie.genre_ids) {
 			for (const genre of genres) {
@@ -70,32 +74,40 @@ const renderMovie = function () {
 		movieGenres += genre.name + ', '
 	}
 	movieGenres = movieGenres.slice(0, -2)
-	document.getElementById('genres') = movieGenres
+	document.getElementById('genres').textContent = movieGenres
 	document.getElementById('vote').textContent = movie.vote_average
 	document.getElementById('release').textContent = movie.release_date
-	document.getElementById('budget').textContent = movie.budget
-	document.getElementById('film-time').textContent = Math.floor(movie.runtime / 60) + (movie.runtime % 60) * 0.01
-	if (movie.poster_path) document.getElementById('poster').src = movie.poster_path
+	document.getElementById('budget').textContent = '$' + movie.budget
+	document.getElementById('film-time').textContent =
+		Math.round(
+			(Math.floor(movie.runtime / 60) + (movie.runtime % 60) * 0.01) * 100
+		) /
+			100 +
+		'h'
+	if (movie.poster_path)
+		document.getElementById(
+			'poster'
+		).src = `https://image.tmdb.org/t/p/w300${movie.poster_path}`
 }
 
 const renderCredits = function (htmlElement) {
 	let castDiv = htmlElement
-	console.log(cast)
-	for (const actor of cast) {
-		const actorCard = document.importNode(actorCardTemplate, true)
-
-		if (actor.profile_path) {
+	castDiv.innerHTML = ''
+	let castShowed = !showMoreCast ? cast.slice(0, 4) : cast.slice(0, 16)
+	castShowed.forEach((element) => {
+		let actorCard = document.importNode(actorCardTemplate, true)
+		if (element.profile_path) {
 			actorCard.content.querySelector(
-				'actor-card__poster'
-			).src = `https://image.tmdb.org/t/p/w185${actor.profile_path}`
+				'.actor-card__poster'
+			).src = `https://image.tmdb.org/t/p/w185${element.profile_path}`
 		}
 
 		actorCard.content.querySelector('.actor-card__title').textContent =
-			actor.character
+			element.character
 		actorCard.content.querySelector('.actor-card__subtitle').textContent =
-			actor.name
+			element.name
 		castDiv.appendChild(actorCard.content)
-	}
+	})
 }
 
 const getMovie = async function () {
@@ -121,9 +133,7 @@ const getRecomandations = async function () {
 		)
 		let data = await res.json()
 		recomandations = data.results
-		renderRecomandations(
-			document.getElementById('recomandations')
-		)
+		renderRecomandations(document.getElementById('recomandations'))
 	} catch (e) {}
 }
 
@@ -134,7 +144,7 @@ const getCredits = async function () {
 		)
 		let data = await res.json()
 		cast = data.cast
-		renderCredits(cast, document.getElementById('actors'))
+		renderCredits(document.getElementById('actors'))
 	} catch (e) {}
 }
 
@@ -144,18 +154,45 @@ const getImages = async function () {
 			`https://api.themoviedb.org/3/movie/${movie_id}/images?api_key=bf42acf712bba686cfff9820897f4edb&language=null`
 		)
 		let data = await res.json()
-		cast = data
+		//cast = data
 	} catch (e) {}
 }
 
-const previousImage = function () {
-
-}
+const previousImage = function () {}
 
 const nextImage = function () {
 	let slider = document.getElementById('slider__images')
 	for (const image of slider.children) {
-		
+	}
+}
+
+const updateShowMoreLess = function () {
+	if (showMoreCast) {
+		document.getElementById('showMoreLess').classList.remove('flex-col')
+		document
+			.getElementById('showMoreLess')
+			.classList.add('flex-col-reverse')
+		document.getElementById('showMoreLess__text').textContent = 'Show less'
+		document.getElementById('showMoreLess__img').src = collapse
+	} else {
+		document
+			.getElementById('showMoreLess')
+			.classList.remove('flex-col-reverse')
+		document.getElementById('showMoreLess').classList.add('flex-col')
+		document.getElementById('showMoreLess__text').textContent = 'Show more'
+		document.getElementById('showMoreLess__img').src = expand
+	}
+}
+
+const showMoreLess = function () {
+	if (!showMoreCast) {
+		showMoreCast = true
+		updateShowMoreLess()
+		renderCredits(document.getElementById('actors'))
+	} else {
+		showMoreCast = false
+		updateShowMoreLess()
+		renderCredits(document.getElementById('actors'))
 	}
 }
 
@@ -163,11 +200,17 @@ document.onload = (function () {
 	getMovieId()
 	getGenres()
 
-	document.getElementById('slider__previous').addEventListener('click', previousImage)
+	document
+		.getElementById('slider__previous')
+		.addEventListener('click', previousImage)
 	document.getElementById('slider__next').addEventListener('click', nextImage)
+
+	document
+		.getElementById('showMoreLess')
+		.addEventListener('click', showMoreLess)
 
 	getMovie()
 	getRecomandations()
 	getCredits()
-	getImages()
+	//getImages()
 })()
