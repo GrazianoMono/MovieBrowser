@@ -4,6 +4,9 @@ import collapse from './assets/svgs/expand-less.svg'
 
 const movieCardTemplate = document.getElementById('movie-card-template')
 const actorCardTemplate = document.getElementById('actor-card-template')
+const imageContainerTemplate = document.getElementById(
+	'image-container-template'
+)
 
 let recomandations = []
 let movie = {}
@@ -11,7 +14,7 @@ let movie_id = 0
 let images = []
 let genres = []
 let cast = []
-let image_showed = 1
+let image_showed = 0
 let showMoreCast = false
 
 const getGenres = async function () {
@@ -110,6 +113,21 @@ const renderCredits = function (htmlElement) {
 	})
 }
 
+const renderImages = function (htmlElement) {
+	let image_slider = htmlElement
+	images.forEach((image, i) => {
+		let image_container = document.importNode(imageContainerTemplate, true)
+		image_container.content.querySelector(
+			'.image-container'
+		).style.left = `${i}00%`
+		image_container.content.querySelector(
+			'.image-container__image'
+		).src = `https://image.tmdb.org/t/p/original${image.file_path}`
+
+		image_slider.appendChild(image_container.content)
+	})
+}
+
 const getMovie = async function () {
 	try {
 		let res = await fetch(
@@ -154,15 +172,26 @@ const getImages = async function () {
 			`https://api.themoviedb.org/3/movie/${movie_id}/images?api_key=bf42acf712bba686cfff9820897f4edb&language=null`
 		)
 		let data = await res.json()
-		//cast = data
+		images = data.posters
+		renderImages(document.getElementById('slider__images'))
 	} catch (e) {}
 }
 
-const previousImage = function () {}
+const previousImage = function () {
+	let slider = document.getElementById('slider__images')
+	if (image_showed - 1 < 0) return
+	image_showed -= 1
+	for (const image of slider.children) {
+		image.style.transform = `translateX(-${image_showed}00%)`
+	}
+}
 
 const nextImage = function () {
 	let slider = document.getElementById('slider__images')
+	if (image_showed + 1 >= images.length) return
+	image_showed += 1
 	for (const image of slider.children) {
+		image.style.transform = `translateX(-${image_showed}00%)`
 	}
 }
 
@@ -212,5 +241,5 @@ document.onload = (function () {
 	getMovie()
 	getRecomandations()
 	getCredits()
-	//getImages()
+	getImages()
 })()
